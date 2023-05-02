@@ -43,7 +43,7 @@
 #X obj 2025 729 loadbang;
 #X text 661 247 Sequencer;
 #X text 246 603 Sub kick;
-#X text 1840 686 Closed Hat;
+#X text 1974 606 Closed Hat;
 #X text 843 217 Metronome \, counts from 1 to 8 in a loop;
 #X obj 1271 244 loadbang;
 #X obj 1274 417 *~;
