@@ -357,6 +357,7 @@
 "Assets/OSC/OSCReciever.cs"
 "Assets/OSC/OSCServer.cs"
 "Assets/OSCHandler.cs"
+"Assets/Scripts/baseMovement.cs"
 -langversion:9.0
 
 /deterministic
