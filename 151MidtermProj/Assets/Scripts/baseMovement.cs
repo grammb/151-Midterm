@@ -20,6 +20,12 @@ public class baseMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Application.runInBackground = true; //allows unity to update when not in focus
+
+        //************* Instantiate the OSC Handler...
+        OSCHandler.Instance.Init();
+        OSCHandler.Instance.SendMessageToClient("pd", "/unity/trigger", 1);
+        OSCHandler.Instance.SendMessageToClient("pd", "/unity/playseq", 1);
         //get the rigidbody component
         rb = GetComponent<Rigidbody>();
     }

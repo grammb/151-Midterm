@@ -1,4 +1,4 @@
-#N canvas 7 64 2319 1127 12;
+#N canvas 140 147 2319 1127 12;
 #X obj 1281 502 dac~;
 #X obj 800 98 metro;
 #X obj 157 745 vline~;
@@ -13,7 +13,7 @@
 #X obj 800 151 int 1;
 #X obj 846 172 + 1;
 #X floatatom 801 176 5 0 0 0 - - - 0;
-#X obj 751 54 tgl 19 0 empty empty empty 0 -10 0 12 #fcfcfc #000000 #000000 0 1;
+#X obj 751 54 tgl 19 0 empty empty empty 0 -10 0 12 #00ff04 #000000 #000000 0 1;
 #X obj 801 199 % 8;
 #X obj 801 224 + 1;
 #X floatatom 800 247 5 0 0 0 - - - 0;
@@ -49,7 +49,7 @@
 #X obj 1284 464 *~;
 #X floatatom 1283 368 5 0 0 0 - - - 0;
 #X text 1277 527 DAC Out;
-#X text 630 54 START DSP HERE:;
+#X text 579 14 START DSP HERE:;
 #X obj 1448 687 bng 19 250 50 0 empty empty empty 0 -10 0 12 #fcfcfc #000000 #000000;
 #X msg 1978 764 0.15;
 #X msg 1282 333 0.5;
@@ -214,7 +214,7 @@
 #X text 164 87 3 Set OSC Addresses (routing osc data;
 #X text 155 26 Key Settings;
 #X floatatom 44 211 5 0 0 0 - - - 0;
-#N canvas 387 224 494 445 oscReceive 0;
+#N canvas 566 458 515 498 oscReceive 1;
 #X obj 55 184 netreceive -u -b;
 #X msg 78 143 listen 0;
 #X text 152 143 stop listening;
@@ -225,13 +225,16 @@
 #X text 150 114 listen on port 8000;
 #X obj 177 269 oscparse;
 #X obj 177 293 list trim;
-#X floatatom 177 363 5 0 0 0 - - - 0;
+#X floatatom 74 402 5 0 0 0 - - - 0;
 #X text 241 267 Parse the OSC message;
 #X obj 177 319 route unity;
-#X obj 176 340 route trigger;
-#X obj 177 390 s osctrig;
+#X obj 74 365 route trigger;
+#X obj 74 438 s osctrig;
 #X msg 66 115 listen 8000;
 #X obj 66 84 loadbang;
+#X obj 188 367 route playseq;
+#X floatatom 192 400 5 0 0 0 - - - 0;
+#X obj 191 440 s oscplayseq;
 #X connect 0 0 6 0;
 #X connect 0 0 8 0;
 #X connect 1 0 0 0;
@@ -240,15 +243,18 @@
 #X connect 9 0 12 0;
 #X connect 10 0 14 0;
 #X connect 12 0 13 0;
+#X connect 12 0 17 0;
 #X connect 13 0 10 0;
 #X connect 15 0 0 0;
 #X connect 16 0 15 0;
+#X connect 17 0 18 0;
+#X connect 18 0 19 0;
 #X restore 47 142 pd oscReceive;
 #X obj 47 36 tgl 15 0 empty empty empty 17 7 0 10 #fcfcfc #000000 #000000 0 1;
 #X msg 47 61 \; pd dsp \$1;
 #X obj 45 295 oscformat PD message;
 #X msg 77 256 set PD message;
-#N canvas 727 97 450 300 oscSend 0;
+#N canvas 870 408 450 300 oscSend 0;
 #X msg 158 207 disconnect;
 #X obj 61 253 netsend -u -b;
 #X obj 59 55 list prepend send;
@@ -266,7 +272,7 @@
 #X connect 7 0 1 0;
 #X connect 8 0 7 0;
 #X restore 47 118 pd oscSend;
-#X obj 45 330 s oscOut;
+#X obj 45 338 s oscOut;
 #X obj 958 14 r osctrig;
 #X obj 2033 520 * 0.04;
 #X obj 2120 360 - 100;
@@ -282,6 +288,7 @@
 #X msg 872 21 150;
 #X text 790 50 Tempo (ms);
 #X msg 1023 52 10;
+#X obj 699 15 r oscplayseq;
 #X connect 1 0 10 0;
 #X connect 2 0 110 0;
 #X connect 3 0 4 0;
@@ -512,3 +519,4 @@
 #X connect 233 0 9 0;
 #X connect 234 0 233 0;
 #X connect 236 0 230 0;
+#X connect 237 0 14 0;
