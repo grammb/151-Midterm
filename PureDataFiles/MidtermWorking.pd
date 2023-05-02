@@ -1,4 +1,4 @@
-#N canvas 15 143 2319 1127 12;
+#N canvas 35 138 2319 1127 12;
 #X obj 1281 502 dac~;
 #X obj 800 98 metro;
 #X obj 157 745 vline~;
@@ -214,7 +214,7 @@
 #X text 164 87 3 Set OSC Addresses (routing osc data;
 #X text 155 26 Key Settings;
 #X floatatom 44 211 5 0 0 0 - - - 0;
-#N canvas 851 460 515 498 oscReceive 1;
+#N canvas 851 460 515 498 oscReceive 0;
 #X obj 55 184 netreceive -u -b;
 #X msg 78 143 listen 0;
 #X text 152 143 stop listening;

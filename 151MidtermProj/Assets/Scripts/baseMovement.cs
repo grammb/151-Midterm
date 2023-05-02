@@ -9,7 +9,6 @@ using UnityOSC;
 public class baseMovement : MonoBehaviour
 {
     public float speed;
-    public float speed2;
     private Rigidbody rb;
     public Text countText;
     public float jumpForce = 15;
@@ -75,8 +74,7 @@ public class baseMovement : MonoBehaviour
             OSCHandler.Instance.SendMessageToClient("pd", "/unity/trigger", 300);
         }
 
-        speed2 = Vector3.Distance(oldPosition, transform.position) * 100f;
-        oldPosition = transform.position;
+ 
 
         //OSCHandler.Instance.SendMessageToClient("pd", "/unity/trigger", speed2);
     }
