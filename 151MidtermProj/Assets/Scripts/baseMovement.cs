@@ -10,10 +10,12 @@ public class baseMovement : MonoBehaviour
 {
     public float speed;
     private Rigidbody rb;
+
+    private int count;
     public Text countText;
+
     public float jumpForce = 15;
     public float gravityScale = 5;
-    Vector3 oldPosition;
     //************* Need to setup this server dictionary...
     Dictionary<string, ServerLog> servers = new Dictionary<string, ServerLog>();
     //*************
@@ -26,7 +28,7 @@ public class baseMovement : MonoBehaviour
 
         //************* Instantiate the OSC Handler...
         OSCHandler.Instance.Init();
-        //OSCHandler.Instance.SendMessageToClient("pd", "/unity/trigger", 150);
+        OSCHandler.Instance.SendMessageToClient("pd", "/unity/trigger", 650);
         OSCHandler.Instance.SendMessageToClient("pd", "/unity/playseq", 1);
         //get the rigidbody component
         rb = GetComponent<Rigidbody>();
@@ -40,11 +42,11 @@ public class baseMovement : MonoBehaviour
 
         rb.AddForce(Physics.gravity * (gravityScale - 1) * rb.mass);
 
-        //Debug.Log(rb.position.x);
-
         Vector3 movement = new Vector3(moveHorizontal, 0, moveVertical);
 
         rb.AddForce(movement * speed);
+
+
         //************* Routine for receiving the OSC...
         OSCHandler.Instance.UpdateLogs();
         Dictionary<string, ServerLog> servers = new Dictionary<string, ServerLog>();
@@ -71,11 +73,64 @@ public class baseMovement : MonoBehaviour
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode.Impulse);
             //WANT TO ADD PURE DATA SOUND STUFF HERE
-            OSCHandler.Instance.SendMessageToClient("pd", "/unity/trigger", 300);
+            //OSCHandler.Instance.SendMessageToClient("pd", "/unity/trigger", 300);
         }
 
- 
+        //END OF FIXED UPDATE
 
-        //OSCHandler.Instance.SendMessageToClient("pd", "/unity/trigger", speed2);
+        
+    }
+
+
+    void OnTriggerEnter(Collider other)
+    {
+        //Debug.Log("-------- COLLISION!!! ----------");
+
+        if (other.gameObject.CompareTag("Items"))
+        {
+            other.gameObject.SetActive(false);
+            count = count + 1;
+            setCountText ();
+
+
+            // change the tempo of the sequence based on how many obejcts we have picked up.
+            if (count < 2)
+            {
+                OSCHandler.Instance.SendMessageToClient("pd", "/unity/trigger", 500);
+            }
+            if (count < 4)
+            {
+                OSCHandler.Instance.SendMessageToClient("pd", "/unity/trigger", 400);
+            }
+            else if (count < 6)
+            {
+                OSCHandler.Instance.SendMessageToClient("pd", "/unity/trigger", 300);
+            }
+            else if (count < 8)
+            {
+                OSCHandler.Instance.SendMessageToClient("pd", "/unity/trigger", 150);
+            }
+            else
+            {
+                OSCHandler.Instance.SendMessageToClient("pd", "/unity/trigger", 100);
+            }
+
+        }
+        else if (other.gameObject.CompareTag("Wall"))
+        {
+            //Debug.Log("-------- HIT THE WALL ----------");
+            // trigger noise burst whe hitting a wall.
+            OSCHandler.Instance.SendMessageToClient("pd", "/unity/colwall", 1);
+        }
+
+    }
+
+    void setCountText()
+    {
+        countText.text = "Count: " + count.ToString();
+
+        //************* Send the message to the client...
+        OSCHandler.Instance.SendMessageToClient("pd", "/unity/trigger", count);
+        //*************
     }
 }
