@@ -30,6 +30,7 @@ public class baseMovement : MonoBehaviour
         OSCHandler.Instance.Init();
         OSCHandler.Instance.SendMessageToClient("pd", "/unity/trigger", 650);
         OSCHandler.Instance.SendMessageToClient("pd", "/unity/playseq", 1);
+        OSCHandler.Instance.SendMessageToClient("pd", "/unity/pitching", 4);
         //get the rigidbody component
         rb = GetComponent<Rigidbody>();
     }
@@ -97,22 +98,28 @@ public class baseMovement : MonoBehaviour
             if (count < 2)
             {
                 OSCHandler.Instance.SendMessageToClient("pd", "/unity/trigger", 500);
+                OSCHandler.Instance.SendMessageToClient("pd", "/unity/pitching", 8);
             }
             if (count < 4)
             {
                 OSCHandler.Instance.SendMessageToClient("pd", "/unity/trigger", 400);
+                OSCHandler.Instance.SendMessageToClient("pd", "/unity/pitching", 12);
             }
             else if (count < 6)
             {
                 OSCHandler.Instance.SendMessageToClient("pd", "/unity/trigger", 300);
+                OSCHandler.Instance.SendMessageToClient("pd", "/unity/pitching", 20);
             }
             else if (count < 8)
             {
                 OSCHandler.Instance.SendMessageToClient("pd", "/unity/trigger", 150);
+                OSCHandler.Instance.SendMessageToClient("pd", "/unity/pitching", 40);
             }
             else
             {
-                OSCHandler.Instance.SendMessageToClient("pd", "/unity/trigger", 100);
+                OSCHandler.Instance.SendMessageToClient("pd", "/unity/trigger", 110);
+                OSCHandler.Instance.SendMessageToClient("pd", "/unity/pitching", 70);
+
             }
 
         }
