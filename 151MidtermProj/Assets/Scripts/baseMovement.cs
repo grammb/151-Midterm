@@ -14,7 +14,7 @@ public class baseMovement : MonoBehaviour
     private int count;
     public Text countText;
 
-    public float jumpForce = 15;
+    public float jumpForce = 205;
     public float gravityScale = 5;
     //************* Need to setup this server dictionary...
     Dictionary<string, ServerLog> servers = new Dictionary<string, ServerLog>();
@@ -69,23 +69,23 @@ public class baseMovement : MonoBehaviour
         }
         //*************
 
-
+        
         if (Input.GetKeyDown(KeyCode.Space))
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode.Impulse);
             //WANT TO ADD PURE DATA SOUND STUFF HERE
             //OSCHandler.Instance.SendMessageToClient("pd", "/unity/trigger", 300);
         }
-
+        
         //END OF FIXED UPDATE
 
         
     }
 
-
     void OnTriggerEnter(Collider other)
     {
         //Debug.Log("-------- COLLISION!!! ----------");
+
 
         if (other.gameObject.CompareTag("Items"))
         {
@@ -117,7 +117,7 @@ public class baseMovement : MonoBehaviour
             }
             else
             {
-                OSCHandler.Instance.SendMessageToClient("pd", "/unity/trigger", 110);
+                OSCHandler.Instance.SendMessageToClient("pd", "/unity/trigger", 120);
                 OSCHandler.Instance.SendMessageToClient("pd", "/unity/pitching", 70);
 
             }
@@ -127,7 +127,12 @@ public class baseMovement : MonoBehaviour
         {
             //Debug.Log("-------- HIT THE WALL ----------");
             // trigger noise burst whe hitting a wall.
-            OSCHandler.Instance.SendMessageToClient("pd", "/unity/colwall", 1);
+            OSCHandler.Instance.SendMessageToClient("pd", "/unity/impact", 1);
+        }
+        else if (other.gameObject.CompareTag("Thump"))
+        {
+            other.gameObject.SetActive(false);
+            OSCHandler.Instance.SendMessageToClient("pd", "/unity/dlc", 1);
         }
 
     }
@@ -140,4 +145,6 @@ public class baseMovement : MonoBehaviour
         OSCHandler.Instance.SendMessageToClient("pd", "/unity/trigger", count);
         //*************
     }
+
+
 }

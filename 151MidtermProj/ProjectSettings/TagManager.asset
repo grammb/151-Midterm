@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Items
+  - Wall
+  - Ground
+  - Thump
   layers:
   - Default
   - TransparentFX
