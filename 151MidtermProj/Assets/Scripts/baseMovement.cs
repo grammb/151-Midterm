@@ -10,6 +10,13 @@ public class baseMovement : MonoBehaviour
 {
     public float speed;
     private Rigidbody rb;
+
+
+    //************* Need to setup this server dictionary...
+    Dictionary<string, ServerLog> servers = new Dictionary<string, ServerLog>();
+    //*************
+
+
     // Start is called before the first frame update
     void Start()
     {
