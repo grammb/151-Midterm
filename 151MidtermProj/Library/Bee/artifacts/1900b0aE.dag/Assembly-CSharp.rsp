@@ -358,6 +358,7 @@
 "Assets/OSC/OSCServer.cs"
 "Assets/OSCHandler.cs"
 "Assets/Scripts/baseMovement.cs"
+"Assets/Scripts/CamControl.cs"
 -langversion:9.0
 
 /deterministic

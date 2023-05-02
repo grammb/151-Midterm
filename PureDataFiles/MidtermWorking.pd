@@ -1,4 +1,4 @@
-#N canvas 140 147 2319 1127 12;
+#N canvas 15 143 2319 1127 12;
 #X obj 1281 502 dac~;
 #X obj 800 98 metro;
 #X obj 157 745 vline~;
@@ -7,7 +7,7 @@
 #X obj 371 754 vline~;
 #X obj 330 775 pow~ 1.5;
 #X obj 256 796 *~;
-#X obj 871 -2 loadbang;
+#X obj 817 -11 loadbang;
 #X floatatom 836 77 5 0 0 0 - - - 0;
 #X obj 799 126 bng 19 250 50 0 empty empty empty 0 -10 0 12 #fcfcfc #000000 #000000;
 #X obj 800 151 int 1;
@@ -214,7 +214,7 @@
 #X text 164 87 3 Set OSC Addresses (routing osc data;
 #X text 155 26 Key Settings;
 #X floatatom 44 211 5 0 0 0 - - - 0;
-#N canvas 566 458 515 498 oscReceive 1;
+#N canvas 851 460 515 498 oscReceive 1;
 #X obj 55 184 netreceive -u -b;
 #X msg 78 143 listen 0;
 #X text 152 143 stop listening;
@@ -273,22 +273,22 @@
 #X connect 8 0 7 0;
 #X restore 47 118 pd oscSend;
 #X obj 45 338 s oscOut;
-#X obj 958 14 r osctrig;
+#X obj 895 -8 r osctrig;
 #X obj 2033 520 * 0.04;
 #X obj 2120 360 - 100;
 #X obj 2120 386 * -1;
 #X floatatom 2120 438 5 0 0 0 - - - 0;
 #X obj 2119 410 + 120;
 #X msg 2033 377 1.5;
-#X text 1084 25 OSCTRIG controls cutoff/tempo from a number 0-100;
-#X floatatom 1022 81 5 0 0 0 - - - 0;
+#X text 1166 20 OSCTRIG controls cutoff/tempo from a number 0-100;
+#X floatatom 1019 77 5 0 0 0 - - - 0;
 #X obj 1019 106 * 0.2;
 #X floatatom 1017 133 5 0 0 0 - - - 0;
 #X obj 874 48 -;
 #X msg 872 21 150;
 #X text 790 50 Tempo (ms);
 #X msg 1023 52 10;
-#X obj 699 15 r oscplayseq;
+#X obj 694 14 r oscplayseq;
 #X connect 1 0 10 0;
 #X connect 2 0 110 0;
 #X connect 3 0 4 0;
@@ -505,6 +505,7 @@
 #X connect 219 0 218 0;
 #X connect 222 0 236 0;
 #X connect 222 0 234 0;
+#X connect 222 0 9 0;
 #X connect 223 0 104 2;
 #X connect 223 0 103 0;
 #X connect 224 0 225 0;
